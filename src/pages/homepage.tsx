@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Header from '@/components/Header';
 import router, { useRouter } from 'next/router';
 import Script from 'next/script'
-import { useEffect, useState } from 'react';
 
 const ContentZone = styled.div`
   position: relative;
@@ -81,19 +80,23 @@ const recommendedProducts = [
 
 ];
 
- export type Product = {
-  _id: string;
+export type Product = {
+  id: number;
   ID: string;
   name: string;
-  img: string;
+  imageSrc: string;
   description: string;
   price: number;
-  gender : string;
-  type : string;
 };
 
 export default function Home() {
 
+  const handleProductClick = (product: Product) => {
+    // Guarda los datos del producto en el almacenamiento local
+    localStorage.setItem('currentProduct', JSON.stringify(product));
+    // Redirige a la página de detalles del producto
+    router.push(`/${product.ID}`);
+  };
 
   return (
     <>
@@ -111,8 +114,20 @@ export default function Home() {
         </TextOverImage>
       </ContentZone>
 
+      <ContentZone>
+  <h2 style={{color: "black"}}>Productos Recomendados</h2>
+  <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", color: "black" }}>
+  {recommendedProducts.map((product) => (
+  <RecommendedProduct key={product.id} onClick={() => handleProductClick(product)}>
+    <a>
+      <ProductImage src={product.imageSrc} alt={product.name} />
+    </a>
+    <ProductName>{product.name}</ProductName>
+  </RecommendedProduct>
+    ))}
+  </div>
+  </ContentZone>
 
     </>
   );
 };
-
