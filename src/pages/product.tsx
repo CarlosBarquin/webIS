@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import { TopBar, NavBar, Logo, Button, SearchInput } from './index'; // Asumiendo que exportas estos componentes desde index.tsx
+import { Button } from './homepage'; // Asumiendo que exportas estos componentes desde index.tsx
+import Header from '@/components/Header';
+import Script from 'next/script'
 
 const ProductContainer = styled.div`
   display: flex;
@@ -32,36 +34,19 @@ const ProductPrice = styled.p`
   font-weight: bold;
 `;
 
-// Reutiliza el Button de index.tsx si es adecuado para tu diseño
 
 export default function Producto() {
   return (
     <>
+     <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
        <Head>
         <title>Web Store</title>
       </Head>
-      <TopBar>
-        <div></div>
-        <div>
-          <a href="#">Carrito</a>
-          <a> </a> 
-          <a href="#">Registrarse</a>
-        </div>
-      </TopBar>
-      <NavBar>
-        <Logo src="https://graphicdesignbylisa.com/wp-content/uploads/generic-logo.jpg" alt="logo" />
-        <div>
-          <a href="#">Inicio</a>
-          <a href="#">Productos</a>
-          <a href="#">Nosotros</a>
-          <a href="#">Contacto</a>
-        </div>
-        <SearchInput type="text" placeholder="Buscar..."/>
-      </NavBar>
+      <Header />
       <ProductContainer>
         <ProductImage src="https://c8.alamy.com/compes/e16we6/converse-all-star-chuck-taylor-en-blanco-y-negro-chuck-taylor-all-stars-lona-y-zapatos-de-goma-zapatillas-de-baloncesto-e16we6.jpg" alt="Zapatillas Deportivas" />
         <ProductDetails>
-          <ProductTitle>Zapatillas Deportivas XYZ</ProductTitle>
+          <ProductTitle>Zapatillas Deportivas</ProductTitle>
           <ProductDescription>Descripción del producto describe este produto pls pls describelo pls .</ProductDescription>
           <ProductPrice>$99.99</ProductPrice>
           <Button>Añadir al Carrito</Button>
