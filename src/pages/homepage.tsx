@@ -92,9 +92,9 @@ export type Product = {
 export default function Home() {
 
   const handleProductClick = (product: Product) => {
-    // Guarda los datos del producto en el almacenamiento local
+   
     localStorage.setItem('currentProduct', JSON.stringify(product));
-    // Redirige a la página de detalles del producto
+    
     router.push(`/${product.ID}`);
   };
 

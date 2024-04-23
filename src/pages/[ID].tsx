@@ -41,7 +41,7 @@ const ProductDetailsPage = () => {
     const [product, setProduct] = useState<Product>();
   
     useEffect(() => {
-      // Intenta recuperar los datos del producto del almacenamiento local
+    
       const productData = localStorage.getItem('currentProduct');
       if (productData) {
         setProduct(JSON.parse(productData));
@@ -60,7 +60,7 @@ const ProductDetailsPage = () => {
         </Head>
         <Header />
         <ProductContainer>
-          <ProductImage src={product.img} alt={product.name} />
+          <ProductImage src={product.imageSrc} alt={product.name} />
           <ProductDetails>
             <ProductDescription>{product.ID}</ProductDescription>
             <ProductTitle>{product.name}</ProductTitle>
