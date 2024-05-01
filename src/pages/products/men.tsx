@@ -89,7 +89,7 @@ const ProductsPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
-    fetch('https://backendis-nodejs.onrender.com/api/products')
+    fetch('https://backendis-nodejs.onrender.com/api/products/male') 
       .then(response => response.json())
       .then((data: Product[]) => setProducts(data))
       .catch(error => console.error('Error fetching data:', error));
@@ -105,7 +105,7 @@ const ProductsPage = () => {
       <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
       <Container>
         <Header />
-        <Title>Explore Our Products</Title>
+        <Title>Explore Our Men's Products</Title> 
         <SearchInput
           type="text"
           placeholder="Search..."
