@@ -50,6 +50,7 @@ export const NavBar = styled.nav`
 
 export const Logo = styled.img`
   height: 50px;
+  cursor: pointer; /* Agrega un cursor de apuntador para indicar que es clickeable */
 `;
 
 export const SearchInput = styled.input`
@@ -62,9 +63,9 @@ const Header = () => (
   <>
     <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
     <TopBar>
-        <div>
+      <div>
              
-        </div>
+      </div>
       <div>
         <IconButton href="#">
           <FontAwesomeIcon icon={faUser} />
@@ -77,7 +78,9 @@ const Header = () => (
       </div>
     </TopBar>
     <NavBar>
-    <Logo src="https://graphicdesignbylisa.com/wp-content/uploads/generic-logo.jpg" alt="logo" />
+      <Link href="/homepage">
+        <Logo src="https://graphicdesignbylisa.com/wp-content/uploads/generic-logo.jpg" alt="logo" />
+      </Link>
       <div>
         <Link href="#">Inicio</Link>
         <Link href="#">Productos</Link>

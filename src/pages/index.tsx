@@ -4,9 +4,9 @@ import Homepage from './homepage';
 
 const IndexPage = () => {
   return (
-    <div>
+    <>
       <Homepage />
-    </div>
+    </>
   );
 };
 

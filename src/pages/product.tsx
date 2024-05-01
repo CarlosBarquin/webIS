@@ -1,7 +1,8 @@
 import Header from '@/components/Header';
+import Link from 'next/link';
+import Script from 'next/script';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 
 type Product = {
   _id: string;
@@ -13,7 +14,6 @@ type Product = {
   gender: string;
   type: string;
 };
-
 
 const Container = styled.div`
   text-align: center;
@@ -76,9 +76,17 @@ const ProductPrice = styled.p`
   grid-row: 4; 
 `;
 
+const SearchInput = styled.input`
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 10%;
+`;
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     fetch('https://backendis-nodejs.onrender.com/api/products')
@@ -87,25 +95,40 @@ const ProductsPage = () => {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <Container>
-      <Header />
-      <Title>Explore Our Products</Title>
-      <ProductsContainer>
-        <CenteredProducts>
-          <ProductGrid>
-            {products.map(product => (
-              <ProductCard key={product._id}>
-                <ProductImage src={product.img} alt={product.name} />
-                <ProductName>{product.name}</ProductName>
-                <ProductDescription>{product.description}</ProductDescription>
-                <ProductPrice>${product.price}</ProductPrice>
-              </ProductCard>
-            ))}
-          </ProductGrid>
-        </CenteredProducts>
-      </ProductsContainer>
-    </Container>
+    <>
+      <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
+      <Container>
+        <Header />
+        <Title>Explore Our Products</Title>
+        <SearchInput
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <ProductsContainer>
+          <CenteredProducts>
+            <ProductGrid>
+              {filteredProducts.map(product => (
+                <ProductCard key={product._id}>
+                  <ProductImage src={product.img} alt={product.name} />
+                  <ProductName>{product.name}</ProductName>
+                  <ProductDescription>{product.description}</ProductDescription>
+                  <ProductPrice>${product.price}</ProductPrice>
+                  <Link href={`/product/${product._id}`}>View Details</Link>
+                </ProductCard>
+              ))}
+            </ProductGrid>
+          </CenteredProducts>
+        </ProductsContainer>
+      </Container>
+    </>
   );
 };
 
