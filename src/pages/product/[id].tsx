@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Header from '@/components/Header';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
+import Footer from '@/components/Footer';
 
 type Product = {
   _id: string;
@@ -31,7 +32,7 @@ const ProductImage = styled.img`
 `;
 
 const ProductDetails = styled.div`
-  max-width: 50%;
+  max-width: 30%;
   display: flex;
   flex-direction: column;
 `;
@@ -42,9 +43,15 @@ const ProductTitle = styled.h2`
   color: #333;
 `;
 
-const ProductDescription = styled.p`
+const ProductID = styled.p`
   color: #666;
 `;
+
+const ProductDescription = styled.p`
+  color: #666;
+  
+`;
+
 
 const ProductPrice = styled.p`
   font-weight: bold;
@@ -54,16 +61,18 @@ const ProductPrice = styled.p`
 
 const Button = styled.button`
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #6dccee;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   margin-top: 20px;
-
+  transition: background-color 0.3s, color 0.3s;
+  max-width: 30%;
+  
   &:hover {
-    background-color: #0056b3;
+    background-color: #609cb4;
   }
 `;
 
@@ -87,21 +96,26 @@ const ProductDetailsPage = () => {
 
   return (
     <>
-      <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
+    <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
+      <div className="page" data-action="Product-Show" data-querystring={`pid=${id}`}>
       <Head>
         <title>{product.name}</title>
       </Head>
       <Header />
       <ProductContainer>
-        <ProductImage src={product.img} alt={product.name} />
+        <ProductImage className="ImgURL" src={product.img} alt={product.name} />
         <ProductDetails>
-          <ProductDescription>{product.ID}</ProductDescription>
-          <ProductTitle>{product.name}</ProductTitle>
-          <ProductDescription>{product.description}</ProductDescription>
-          <ProductPrice>${product.price}</ProductPrice>
-          <Button>Add to Cart</Button>
+          <ProductID className="ProductID" >{product._id}</ProductID>
+          <ProductTitle className="ProductName" >{product.name}</ProductTitle> <br />
+          <ProductDescription className="ProductDescription" >{product.description}</ProductDescription>
+          <ProductPrice className="ProductPrice" >${product.price}</ProductPrice>
+          <Button className="Add-To-Cart" >Add to Cart</Button>
         </ProductDetails>
       </ProductContainer>
+      <Footer />
+      </div>
+
+      
     </>
   );
 };

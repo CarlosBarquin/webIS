@@ -1,8 +1,9 @@
-import Header from '@/components/Header';
+import Head from 'next/head';
 import Link from 'next/link';
-import Script from 'next/script';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import Script from 'next/script';
 
 type Product = {
   _id: string;
@@ -15,75 +16,13 @@ type Product = {
   type: string;
 };
 
-const Container = styled.div`
-  text-align: center;
-`;
-
-const Title = styled.h1`
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #333;
-`;
-
-const ProductsContainer = styled.div`
-  padding: 0 20px; 
-`;
-
-const CenteredProducts = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const ProductGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  justify-items: center; 
-`;
-
-const ProductCard = styled.div`
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-rows: 1fr auto auto auto auto; 
-  gap: 10px; 
-`;
-
-const ProductImage = styled.img`
-  width: 100%;
-  border-radius: 5px;
-  grid-row: 1; 
-`;
-
-const ProductName = styled.h3`
-  font-size: 18px;
-  margin: 0; 
-  grid-row: 2; 
-`;
-
-const ProductPrice = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0; 
-  grid-row: 4; 
-`;
-
-const SearchInput = styled.input`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  width: 10%;
-`;
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
-    fetch('https://backendis-nodejs.onrender.com/api/products/female') 
+    fetch('https://backendis-nodejs.onrender.com/api/products/female')
       .then(response => response.json())
       .then((data: Product[]) => setProducts(data))
       .catch(error => console.error('Error fetching data:', error));
@@ -96,31 +35,39 @@ const ProductsPage = () => {
 
   return (
     <>
-      <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
-      <Container>
+    <Script type="text/javascript" async src="//cdn.evgnet.com/beacon/partnerthecocktailspain/cbarquin/scripts/evergage.min.js"></Script>
+      <Head>
+        <title>Explore Our Female's Products</title>
+      </Head>
+      <div className="Container">
         <Header />
-        <Title>Explore Our Female's Products</Title> 
-        <SearchInput
+        <h1 className="TITLE">Explore Our Products</h1>
+        <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          className="SearchInput"
         />
-        <ProductsContainer>
-          <CenteredProducts>
-            <ProductGrid>
+        <div className="ProductsContainer">
+          <div className="CenteredProducts">
+            <div className="ProductGrid">
               {filteredProducts.map(product => (
-                <ProductCard key={product._id}>
-                  <ProductImage src={product.img} alt={product.name} />
-                  <ProductName>{product.name}</ProductName>
-                  <ProductPrice>${product.price}</ProductPrice>
-                  <Link href={`/product/${product._id}`}>View Details</Link>
-                </ProductCard>
+                <div key={product._id} className="ProductCard">
+                  <img className="ProductImage" src={product.img} alt={product.name} />
+                  <h3 className="ProductName">{product.name}</h3>
+                  <p className="ProductPrice">${product.price}</p>
+                  <a href={`/product/${product._id}`}>View Details</a>
+                </div>
               ))}
-            </ProductGrid>
-          </CenteredProducts>
-        </ProductsContainer>
-      </Container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Footer />
     </>
   );
 };
